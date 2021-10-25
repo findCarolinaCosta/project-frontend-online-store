@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 
 class Home extends React.Component {
@@ -60,10 +61,13 @@ class Home extends React.Component {
     } = this.state;
 
     return (
-      <>
+      <div>
         <p data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
+        <Link data-testid="shopping-cart-button" to="/shoppingcart">
+          Carrinho de Compras
+        </Link>
         <form>
           <input
             type="text"
@@ -81,7 +85,7 @@ class Home extends React.Component {
         </form>
 
         {showResults && this.handleProducts()}
-      </>
+      </div>
     );
   }
 }
