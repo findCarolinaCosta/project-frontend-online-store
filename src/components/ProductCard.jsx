@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { Link } from 'react-router-dom';
 import { sendItemsToCloud } from '../services/cart';
 
 class ProductCard extends React.Component {
@@ -16,12 +17,16 @@ class ProductCard extends React.Component {
     const {
       thumbnail,
       productId,
+      categoryId,
       title,
       price,
     } = this.props;
 
     return (
-      <>
+      <Link
+        to={ `/detailedproductview/${categoryId}/${productId}` }
+        data-testid="product-detail-link"
+      >
         <img
           src={ thumbnail }
           alt={ productId }
@@ -39,7 +44,7 @@ class ProductCard extends React.Component {
         >
           Eu quero!
         </button>
-      </>
+      </Link>
     );
   }
 }
