@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { getCategories } from '../services/api';
 
@@ -21,6 +22,7 @@ class Categories extends React.Component {
 
   render() {
     const { categories } = this.state;
+    const { categoryChange } = this.props;
 
     return (
       <div className="categories">
@@ -29,7 +31,13 @@ class Categories extends React.Component {
           categories.map((categorie) => (
             <div key={ categorie.id } className="categories-item">
               <label htmlFor={ categorie.id } data-testid="category">
-                <input type="radio" name="categorie" id={ categorie.id } />
+                <input
+                  type="radio"
+                  name="categorie"
+                  id={ categorie.id }
+                  value={ categorie.id }
+                  onChange={ categoryChange }
+                />
                 {categorie.name}
               </label>
             </div>
@@ -39,4 +47,8 @@ class Categories extends React.Component {
     );
   }
 }
+
+Categories.propTypes = {
+  categoryChange: PropTypes.func.isRequired,
+};
 export default Categories;

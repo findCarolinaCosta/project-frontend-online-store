@@ -11,7 +11,12 @@ class Home extends React.Component {
       productsList: [],
       inputSearch: '',
       showResults: false,
+      categorySelected: '',
     };
+  }
+
+  categoryChange = ({ target }) => {
+    this.setState({ categorySelected: target.value });
   }
 
   onInputChange = ({ target }) => {
@@ -63,7 +68,7 @@ class Home extends React.Component {
 
     return (
       <div className="home-layout">
-        <Categories />
+        <Categories categoryChange={ this.categoryChange } />
 
         <div>
           <div className="d-flex jc-end">
