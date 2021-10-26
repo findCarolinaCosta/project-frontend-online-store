@@ -47,16 +47,21 @@ class Home extends React.Component {
         key={ product.id }
         data-testid="product"
       >
-        <img
-          src={ product.thumbnail }
-          alt={ product.id }
-        />
-        <span>
-          {product.title}
-        </span>
-        <span>
-          {`R$ ${product.price}`}
-        </span>
+        <Link
+          to={ `/detailedproductview/${product.category_id}/${product.id}` }
+          data-testid="product-detail-link"
+        >
+          <img
+            src={ product.thumbnail }
+            alt={ product.id }
+          />
+          <span>
+            {product.title}
+          </span>
+          <span>
+            {`R$ ${product.price}`}
+          </span>
+        </Link>
       </div>
     ));
   }
