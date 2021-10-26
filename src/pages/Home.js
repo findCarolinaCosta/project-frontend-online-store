@@ -32,7 +32,7 @@ class Home extends React.Component {
     const { productsList } = this.state;
     const { results } = productsList;
 
-    if (results.lenght === 0) {
+    if (results.length === 0) {
       return <span>Nenhum produto foi encontrado</span>;
     }
 
