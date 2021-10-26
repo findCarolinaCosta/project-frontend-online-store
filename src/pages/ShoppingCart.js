@@ -10,6 +10,7 @@ class ShoppingCart extends Component {
     this.state = {
       productIds: [],
       showResults: false,
+      productsDetails: [],
     };
   }
 
@@ -17,25 +18,36 @@ class ShoppingCart extends Component {
     this.handleCloudIds();
   }
 
-  handleItemDetails = () => {
-    const { productIds } = this.state;
-    productIds.forEach(async ({ productId, categoryId }) => {
-      const details = await getProductsFromCategoryAndQuery(categoryId, productId);
-      return details;
-    });
-  }
-
   handleCloudIds = () => {
     this.setState({
       productIds: getItemsFromCloud(),
       showResults: true,
-    });
+    }, this.handleItemsDetails);
   };
 
-  handleCartList = () => {
-    const { productIds } = this.state;
+  handleItemsDetails = () => {
+    const {
+      productIds,
+      productsDetails,
+    } = this.state;
+    productIds.forEach(async ({ productId, categoryId }) => {
+      const allProducts = await getProductsFromCategoryAndQuery(categoryId);
+      const product = allProducts.results.find(({ id }) => id === productId);
+      productsDetails.push(product);
 
-    if (productIds.lenth === 0) {
+      this.setState({
+        productsDetails,
+      });
+    });
+  }
+
+  handleCartList = () => {
+    const {
+      productIds,
+      productsDetails,
+    } = this.state;
+
+    if (productIds.length === 0) {
       return (
         <p data-testid="shopping-cart-empty-message">
           Seu carrinho está vazio
@@ -44,17 +56,26 @@ class ShoppingCart extends Component {
     }
 
     return (
-      productIds.map(async ({ productId, categoryId }) => {
-        const categories = await getProductsFromCategoryAndQuery(categoryId);
-        const { results } = categories;
-        const product = results.find(({ id }) => id === productId);
+      <div>
+        <span data-testid="shopping-cart-product-quantity">
+          {productsDetails.length}
+        </span>
+        {productsDetails.map((product) => {
+          const {
+            id,
+            title,
+          } = product;
 
-        return (
-          <div key={ productId }>
-            <span>{product.name}</span>
-          </div>
-        );
-      }));
+          return (
+            <div key={ id }>
+              <span data-testid="shopping-cart-product-name">
+                {title}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+    );
   }
 
   render() {

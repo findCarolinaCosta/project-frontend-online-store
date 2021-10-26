@@ -23,20 +23,22 @@ class ProductCard extends React.Component {
     } = this.props;
 
     return (
-      <Link
-        to={ `/detailedproductview/${categoryId}/${productId}` }
-        data-testid="product-detail-link"
-      >
-        <img
-          src={ thumbnail }
-          alt={ productId }
-        />
-        <span>
-          {title}
-        </span>
-        <span>
-          {`R$ ${price}`}
-        </span>
+      <>
+        <Link
+          to={ `/detailedproductview/${categoryId}/${productId}` }
+          data-testid="product-detail-link"
+        >
+          <img
+            src={ thumbnail }
+            alt={ productId }
+          />
+          <span>
+            {title}
+          </span>
+          <span>
+            {`R$ ${price}`}
+          </span>
+        </Link>
         <button
           type="button"
           onClick={ this.sendToCart }
@@ -44,7 +46,7 @@ class ProductCard extends React.Component {
         >
           Eu quero!
         </button>
-      </Link>
+      </>
     );
   }
 }
