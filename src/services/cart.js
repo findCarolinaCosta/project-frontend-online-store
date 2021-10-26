@@ -1,5 +1,5 @@
 // Lida com enviar os Ids dos produtos para o localStorage
-export function sendItemsToCloud(productId) {
+export function sendItemsToCloud(productId, categoryId) {
   const cloudProductsIds = localStorage.getItem('CartIds');
   let productsIds = [];
 
@@ -7,8 +7,8 @@ export function sendItemsToCloud(productId) {
     productsIds = JSON.parse(cloudProductsIds);
   }
 
-  productsIds.push(productId);
-  const stringProducts = JSON.stringify(products);
+  productsIds.push({ productId, categoryId });
+  const stringProducts = JSON.stringify(productsIds);
 
   localStorage.setItem('CartIds', stringProducts);
 }

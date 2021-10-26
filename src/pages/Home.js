@@ -51,6 +51,7 @@ class Home extends React.Component {
         <ProductCard
           thumbnail={ product.thumbnail }
           productId={ product.id }
+          categoryId={ product.category_id }
           title={ product.title }
           price={ product.price }
         />

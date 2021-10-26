@@ -5,8 +5,11 @@ import { sendItemsToCloud } from '../services/cart';
 
 class ProductCard extends React.Component {
   sendToCart = () => {
-    const { productId } = this.props;
-    sendItemsToCloud(productId);
+    const {
+      productId,
+      categoryId,
+    } = this.props;
+    sendItemsToCloud(productId, categoryId);
   }
 
   render() {
@@ -32,7 +35,7 @@ class ProductCard extends React.Component {
         <button
           type="button"
           onClick={ this.sendToCart }
-          data-testid="product-detail-add-to-cart"
+          data-testid="product-add-to-cart"
         >
           Eu quero!
         </button>
@@ -45,6 +48,7 @@ ProductCard.propTypes = ({
   thumbnail: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   productId: PropTypes.string.isRequired,
+  categoryId: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
 });
 
