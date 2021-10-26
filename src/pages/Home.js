@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Categories from '../components/Categories';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 
 class Home extends React.Component {
@@ -61,30 +62,42 @@ class Home extends React.Component {
     } = this.state;
 
     return (
-      <div>
-        <p data-testid="home-initial-message">
-          Digite algum termo de pesquisa ou escolha uma categoria.
-        </p>
-        <Link data-testid="shopping-cart-button" to="/shoppingcart">
-          Carrinho de Compras
-        </Link>
-        <form>
-          <input
-            type="text"
-            data-testid="query-input"
-            value={ inputSearch }
-            onChange={ this.onInputChange }
-          />
-          <button
-            type="button"
-            data-testid="query-button"
-            onClick={ this.handleSearch }
-          >
-            pesquisar
-          </button>
-        </form>
+      <div className="home-layout">
+        <Categories />
 
-        {showResults && this.handleProducts()}
+        <div>
+          <div className="d-flex jc-end">
+            <Link className="cart" data-testid="shopping-cart-button" to="/shoppingcart">
+              Carrinho de compras
+              <span role="img" aria-label="Carrinho de compras">&#128722;</span>
+            </Link>
+          </div>
+          <p data-testid="home-initial-message">
+            Digite algum termo de pesquisa ou escolha uma categoria.
+          </p>
+          <form className="d-flex">
+            <input
+              className="form-control"
+              type="text"
+              data-testid="query-input"
+              value={ inputSearch }
+              onChange={ this.onInputChange }
+            />
+            <button
+              className="search-button"
+              type="submit"
+              data-testid="query-button"
+              onClick={ (event) => {
+                event.preventDefault();
+                this.handleSearch();
+              } }
+            >
+              <span role="img" aria-label="Pesquisar">&#128270;</span>
+            </button>
+          </form>
+
+          {showResults && this.handleProducts()}
+        </div>
       </div>
     );
   }
