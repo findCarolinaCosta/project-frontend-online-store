@@ -11,12 +11,12 @@ class Home extends React.Component {
       productsList: [],
       inputSearch: '',
       showResults: false,
-      categorySelected: '',
+      category: '',
     };
   }
 
   categoryChange = ({ target }) => {
-    this.setState({ categorySelected: target.value });
+    this.setState({ category: target.value });
   }
 
   onInputChange = ({ target }) => {
@@ -24,8 +24,9 @@ class Home extends React.Component {
   }
 
   handleSearch = async () => {
-    const { inputSearch } = this.state;
-    const products = await getProductsFromCategoryAndQuery(false, inputSearch);
+    const { inputSearch, category } = this.state;
+    const products = await
+    getProductsFromCategoryAndQuery(category, inputSearch);
 
     this.setState({
       productsList: products,
@@ -68,7 +69,10 @@ class Home extends React.Component {
 
     return (
       <div className="home-layout">
-        <Categories categoryChange={ this.categoryChange } />
+        <Categories
+          categoryChange={ this.categoryChange }
+          handleSearch={ this.handleSearch }
+        />
 
         <div>
           <div className="d-flex jc-end">
