@@ -41,7 +41,8 @@ class Categories extends React.Component {
                     handleSearch();
                   } }
                 />
-                {category.name}
+                &nbsp;
+                { category.name }
               </label>
             </div>
           ))
@@ -55,4 +56,5 @@ Categories.propTypes = {
   categoryChange: PropTypes.func.isRequired,
   handleSearch: PropTypes.func.isRequired,
 };
+
 export default Categories;

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { getProductsFromCategoryAndQuery } from '../services/api';
+import Evaluation from '../components/Evaluation';
 
 class DetailedProductView extends Component {
   constructor() {
@@ -32,15 +33,21 @@ class DetailedProductView extends Component {
   render() {
     const { title, thumbnail, price, availableQuantity, condition } = this.state;
     return (
-      <div>
-        <h3 data-testid="product-detail-name">{ title }</h3>
+      <div className="p-10">
+        <h3 data-testid="product-detail-name">{title}</h3>
         <img src={ thumbnail } alt={ title } />
-        <h3>{ `R$ ${price}` }</h3>
+        <h3>{`R$ ${price}`}</h3>
         <h4>Especificações: </h4>
         <p>
-          { `Quantidade disponível: ${availableQuantity}` }
-          { `Condição do produto: ${condition}` }
+          {`Quantidade disponível: ${availableQuantity}`}
+          &nbsp;|&nbsp;
+          {`Condição do produto: ${condition}`}
         </p>
+
+        <br />
+        <br />
+
+        <Evaluation />
       </div>
     );
   }
