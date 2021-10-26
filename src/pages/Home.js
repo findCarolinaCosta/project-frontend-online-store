@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Categories from '../components/Categories';
+import ProductCard from '../components/ProductCard';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 
 class Home extends React.Component {
@@ -47,21 +48,13 @@ class Home extends React.Component {
         key={ product.id }
         data-testid="product"
       >
-        <Link
-          to={ `/detailedproductview/${product.category_id}/${product.id}` }
-          data-testid="product-detail-link"
-        >
-          <img
-            src={ product.thumbnail }
-            alt={ product.id }
-          />
-          <span>
-            {product.title}
-          </span>
-          <span>
-            {`R$ ${product.price}`}
-          </span>
-        </Link>
+        <ProductCard
+          thumbnail={ product.thumbnail }
+          productId={ product.id }
+          categoryId={ product.category_id }
+          title={ product.title }
+          price={ product.price }
+        />
       </div>
     ));
   }
