@@ -1,7 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { sendItemsToCloud } from '../services/cart';
+
 class ProductCard extends React.Component {
+  sendToCart = () => {
+    const { productId } = this.props;
+    sendItemsToCloud(productId);
+  }
+
   render() {
     const {
       thumbnail,
@@ -22,6 +29,13 @@ class ProductCard extends React.Component {
         <span>
           {`R$ ${price}`}
         </span>
+        <button
+          type="button"
+          onClick={ this.sendToCart }
+          data-testid="product-detail-add-to-cart"
+        >
+          Eu quero!
+        </button>
       </>
     );
   }
