@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { getProductsFromCategoryAndQuery } from '../services/api';
+import { sendItemsToCloud } from '../services/cart';
 
 class DetailedProductView extends Component {
   constructor() {
@@ -9,6 +10,10 @@ class DetailedProductView extends Component {
       title: '',
       thumbnail: '',
       price: 0,
+      availableQuantity: 0,
+      condition: '',
+      categoryId: '',
+      id: '',
     };
   }
 
@@ -26,7 +31,15 @@ class DetailedProductView extends Component {
       price: product.price,
       availableQuantity: product.available_quantity,
       condition: product.condition,
+      categoryId,
+      id,
     });
+  }
+
+  sendToCart = () => {
+    const { categoryId, id } = this.state;
+
+    sendItemsToCloud(id, categoryId);
   }
 
   render() {
@@ -41,6 +54,13 @@ class DetailedProductView extends Component {
           { `Quantidade disponível: ${availableQuantity}` }
           { `Condição do produto: ${condition}` }
         </p>
+        <button
+          type="button"
+          data-testid="product-detail-add-to-cart"
+          onClick={ this.sendToCart }
+        >
+          Adicionar Ao Carrinho
+        </button>
       </div>
     );
   }
