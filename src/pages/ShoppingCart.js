@@ -64,12 +64,16 @@ class ShoppingCart extends Component {
           const {
             id,
             title,
+            price,
           } = product;
 
           return (
             <div key={ id }>
               <span data-testid="shopping-cart-product-name">
                 {title}
+              </span>
+              <span>
+                {price}
               </span>
             </div>
           );
