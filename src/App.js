@@ -10,9 +10,12 @@ class App extends React.Component {
     return (
       <BrowserRouter>
         <Switch>
-          <Route path="/shoppingcart" component={ ShoppingCart } />
-          <Route path="/" component={ Home } />
-          <Route path="/DetailedProductView:id" component={ DetailedProductView } />
+          <Route
+            path="/detailedproductview/:categoryId/:id"
+            component={ DetailedProductView }
+          />
+          <Route exact path="/shoppingcart" component={ ShoppingCart } />
+          <Route exact path="/" component={ Home } />
         </Switch>
       </BrowserRouter>
     );

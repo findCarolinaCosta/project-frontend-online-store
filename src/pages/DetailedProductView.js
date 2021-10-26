@@ -5,28 +5,27 @@ import { getProductsFromCategoryAndQuery } from '../services/api';
 class DetailedProductView extends Component {
   constructor() {
     super();
-    const { match: { params: { id } } } = this.props;
     this.state = {
       title: '',
       thumbnail: '',
       price: 0,
-      id,
     };
   }
 
   componentDidMount() {
-    this.handleAPI();
+    const { match: { params: { id, categoryId } } } = this.props;
+    this.handleAPI(categoryId, id);
   }
 
-  handleAPI = async () => {
-    const { id } = this.state;
-    const detail = await getProductsFromCategoryAndQuery(id, '');
+  handleAPI = async (categoryId, id) => {
+    const detail = await getProductsFromCategoryAndQuery(categoryId);
+    const product = detail.results.find((item) => item.id === id);
     this.setState({
-      title: detail.title,
-      thumbnail: detail.thumbnail,
-      price: detail.price,
-      availableQuantity: detail.available_quantity,
-      condition: detail.condition,
+      title: product.title,
+      thumbnail: product.thumbnail,
+      price: product.price,
+      availableQuantity: product.available_quantity,
+      condition: product.condition,
     });
   }
 
@@ -51,6 +50,7 @@ DetailedProductView.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string,
+      categoryId: PropTypes.string,
     }),
   }).isRequired,
 };

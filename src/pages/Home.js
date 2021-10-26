@@ -48,7 +48,7 @@ class Home extends React.Component {
         data-testid="product"
       >
         <Link
-          to={ `/DetailedProductView/${product.id}` }
+          to={ `/detailedproductview/${product.category_id}/${product.id}` }
           data-testid="product-detail-link"
         >
           <img
