@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Categories from '../components/Categories';
+import ProductCard from '../components/ProductCard';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 
 class Home extends React.Component {
@@ -47,16 +48,12 @@ class Home extends React.Component {
         key={ product.id }
         data-testid="product"
       >
-        <img
-          src={ product.thumbnail }
-          alt={ product.id }
+        <ProductCard
+          thumbnail={ product.thumbnail }
+          productId={ product.id }
+          title={ product.title }
+          price={ product.price }
         />
-        <span>
-          {product.title}
-        </span>
-        <span>
-          {`R$ ${product.price}`}
-        </span>
       </div>
     ));
   }
