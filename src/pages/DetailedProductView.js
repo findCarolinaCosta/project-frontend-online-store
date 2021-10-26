@@ -47,12 +47,10 @@ class DetailedProductView extends Component {
     const { title, thumbnail, price, availableQuantity, condition } = this.state;
     return (
       <div>
-        <div className="d-flex jc-end">
-          <Link className="cart" data-testid="shopping-cart-button" to="/shoppingcart">
-            Carrinho de compras
-            <span role="img" aria-label="Carrinho de compras">&#128722;</span>
-          </Link>
-        </div>
+        <Link className="cart" data-testid="shopping-cart-button" to="/shoppingcart">
+          Carrinho de compras
+          <span role="img" aria-label="Carrinho de compras">&#128722;</span>
+        </Link>
         <h3 data-testid="product-detail-name">{ title }</h3>
         <img src={ thumbnail } alt={ title } />
         <h3>{ `R$ ${price}` }</h3>
