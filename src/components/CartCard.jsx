@@ -1,28 +1,59 @@
 import React, { Component } from 'react';
+import { removeProduct } from '../services/cart';
 
 class CartCard extends Component {
   constructor() {
     super();
     this.state = {
+      totalValue: 0,
       quantityOfProduct: 1,
     };
   }
 
+  componentDidMount() {
+    this.totalAmount();
+  }
+
+  totalAmount = () => {
+    const {
+      quantityOfProduct,
+    } = this.state;
+
+    const {
+      price,
+    } = this.props;
+
+    this.setState({
+      totalValue: parseFloat(price) * parseFloat(quantityOfProduct),
+    });
+  }
+
   decreaseCartQuantity = () => {
+    const { quantityOfProduct } = this.state;
+    if (quantityOfProduct < 1) {
+      this.setState({
+        quantityOfProduct: 1,
+      });
+    }
     this.setState((prevState) => ({
       quantityOfProduct: prevState.quantityOfProduct - 1,
-    }));
+    }), () => { this.totalAmount(); });
   }
 
   increaseCartQuantity = () => {
     this.setState((prevState) => ({
       quantityOfProduct: prevState.quantityOfProduct + 1,
-    }));
+    }), () => { this.totalAmount(); });
   }
 
   emptyCart = () => {
-    // pega lista do local storage, separa o que for diferente do ID do X; retorna lista sem o produto e renderiza carrinho de novo
-    
+    const {
+      id,
+      handleCloudIds,
+    } = this.props;
+    removeProduct(id);
+    handleCloudIds();
+    window.location.reload();
   }
 
   render() {
@@ -35,7 +66,8 @@ class CartCard extends Component {
 
     const {
       quantityOfProduct,
-     } = this.state;
+      totalValue,
+    } = this.state;
 
     return (
       <div>
@@ -74,6 +106,10 @@ class CartCard extends Component {
           >
             X
           </button>
+          <div>
+            {/* mostra valor total por produto */}
+            { totalValue }
+          </div>
         </div>
       </div>
     );

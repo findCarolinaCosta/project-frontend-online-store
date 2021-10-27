@@ -12,7 +12,15 @@ class ShoppingCart extends Component {
       productIds: [],
       showResults: false,
       productsDetails: [],
+      finalPrice: 0,
     };
+  }
+
+  // valor total da compra
+  finalPriceTotal = (value) => {
+    this.setState((prevState) => ({
+      finalPrice: prevState.finalPrice + value,
+    }))
   }
 
   componentDidMount() {
@@ -76,9 +84,12 @@ class ShoppingCart extends Component {
               title={ title }
               price={ price }
               quantityOfEachProduct={ quantityOfEachProduct }
+              handleCloudIds={ this.handleCloudIds }
             />
           );
         })}
+        {/* valor total da compra */}
+        <p>Valor total da compra: </p>
       </div>
     );
   }
