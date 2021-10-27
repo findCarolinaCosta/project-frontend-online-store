@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import { getItemsFromCloud } from '../services/cart';
 import { getProductsFromCategoryAndQuery } from '../services/api';
+import CartCard from '../components/CartCard';
 
 class ShoppingCart extends Component {
   constructor() {
@@ -45,6 +46,7 @@ class ShoppingCart extends Component {
     const {
       productIds,
       productsDetails,
+      quantityOfEachProduct,
     } = this.state;
 
     if (productIds.length === 0) {
@@ -61,20 +63,20 @@ class ShoppingCart extends Component {
           {productsDetails.length}
         </span>
         {productsDetails.map((product) => {
+          console.log(product);
           const {
             id,
             title,
             price,
           } = product;
           return (
-            <div key={ id }>
-              <span data-testid="shopping-cart-product-name">
-                {title}
-              </span>
-              <span>
-                {price}
-              </span>
-            </div>
+            <CartCard
+              key={ id }
+              id={ id }
+              title={ title }
+              price={ price }
+              quantityOfEachProduct={ quantityOfEachProduct }
+            />
           );
         })}
       </div>

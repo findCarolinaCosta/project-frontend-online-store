@@ -24,6 +24,7 @@ class Home extends React.Component {
     this.setState({ inputSearch: target.value });
   }
 
+  // busca produto de acordo com categoria e query
   handleSearch = async () => {
     const { inputSearch, category } = this.state;
     const products = await
@@ -35,6 +36,7 @@ class Home extends React.Component {
     });
   }
 
+  // mostra resultado da busca
   handleProducts = () => {
     const { productsList } = this.state;
     const { results } = productsList;

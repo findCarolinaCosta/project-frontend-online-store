@@ -23,3 +23,14 @@ export function getItemsFromCloud() {
 
   return [];
 }
+
+// pega lista do local storage, separa o que for diferente do ID do X; retorna lista sem o produto e renderiza carrinho de novo
+
+export function removeProduct(id) {
+  const cloudProdutsList = localStorage.getItem('CartIds');
+  const productList = JSON.parse(cloudProdutsList);
+
+  const filtredList = productList.filter(({ productId }) => productId === id);
+
+  localStorage.setItem('CartIds', JSON.stringify(filtredList));
+}
