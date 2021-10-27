@@ -38,7 +38,8 @@ class Categories extends React.Component {
                   value={ category.id }
                   onChange={ categoryChange }
                 />
-                {category.name}
+                &nbsp;
+                { category.name }
               </label>
             </div>
           ))
@@ -51,4 +52,5 @@ class Categories extends React.Component {
 Categories.propTypes = {
   categoryChange: PropTypes.func.isRequired,
 };
+
 export default Categories;
