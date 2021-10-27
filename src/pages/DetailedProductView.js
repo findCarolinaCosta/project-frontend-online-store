@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getProductsFromCategoryAndQuery } from '../services/api';
+import Evaluation from '../components/Evaluation';
 import { sendItemsToCloud } from '../services/cart';
 
 class DetailedProductView extends Component {
@@ -45,27 +46,40 @@ class DetailedProductView extends Component {
 
   render() {
     const { title, thumbnail, price, availableQuantity, condition } = this.state;
+
     return (
-      <div>
-        <Link className="cart" data-testid="shopping-cart-button" to="/shoppingcart">
-          Carrinho de compras
-          <span role="img" aria-label="Carrinho de compras">&#128722;</span>
-        </Link>
-        <h3 data-testid="product-detail-name">{ title }</h3>
-        <img src={ thumbnail } alt={ title } />
-        <h3>{ `R$ ${price}` }</h3>
-        <h4>Especificações: </h4>
-        <p>
-          { `Quantidade disponível: ${availableQuantity}` }
-          { `Condição do produto: ${condition}` }
-        </p>
-        <button
-          type="button"
-          data-testid="product-detail-add-to-cart"
-          onClick={ this.sendToCart }
-        >
-          Adicionar Ao Carrinho
-        </button>
+      <div className="p-10">
+        <h3 data-testid="product-detail-name">{title}</h3>
+        <div>
+          <Link className="cart" data-testid="shopping-cart-button" to="/shoppingcart">
+            Carrinho de compras
+            <span role="img" aria-label="Carrinho de compras">&#128722;</span>
+          </Link>
+          <img src={ thumbnail } alt={ title } />
+          <h3>{`R$ ${price}`}</h3>
+          <h4>Especificações: </h4>
+          <p>
+            {`Quantidade disponível: ${availableQuantity}`}
+            &nbsp;|&nbsp;
+            {`Condição do produto: ${condition}`}
+          </p>
+
+          <br />
+          <br />
+
+          <button
+            type="button"
+            data-testid="product-detail-add-to-cart"
+            onClick={ this.sendToCart }
+          >
+            Adicionar Ao Carrinho
+          </button>
+
+          <br />
+          <br />
+
+          <Evaluation />
+        </div>
       </div>
     );
   }
@@ -74,9 +88,9 @@ class DetailedProductView extends Component {
 DetailedProductView.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
-      id: PropTypes.string,
-      categoryId: PropTypes.string,
-    }),
+      id: PropTypes.string.isRequired,
+      categoryId: PropTypes.string.isRequired,
+    }).isRequired,
   }).isRequired,
 };
 
