@@ -10,7 +10,7 @@ class Evaluation extends React.Component {
 
     this.state = {
       email: '',
-      rating: 0,
+      rating: 5,
       evaluation: '',
     };
   }
@@ -24,11 +24,22 @@ class Evaluation extends React.Component {
     const { match } = this.props;
 
     const savedAssessments = JSON.parse(localStorage.getItem('savedAssessments')) || [];
-    savedAssessments.push({ id: match.params.id, email, rating, evaluation });
+    savedAssessments.unshift({ id: match.params.id, email, rating, evaluation });
     localStorage.setItem('savedAssessments', JSON.stringify(savedAssessments));
+    this.setState({
+      email: '',
+      rating: 5,
+      evaluation: '',
+    });
   }
 
   render() {
+    const {
+      email,
+      rating,
+      evaluation,
+    } = this.state;
+
     return (
       <div>
         <h3>Avaliações</h3>
@@ -40,6 +51,7 @@ class Evaluation extends React.Component {
                 email: event.target.value,
               });
             } }
+            value={ email }
             className="form-control "
             type="email"
             placeholder="Digite seu e-mail"
@@ -48,6 +60,7 @@ class Evaluation extends React.Component {
           <br />
           <Rating
             maxRating={ 5 }
+            defaultValue={ rating }
             setRating={ (selectedRating) => {
               this.setState({ rating: selectedRating });
             } }
@@ -59,6 +72,7 @@ class Evaluation extends React.Component {
                 evaluation: event.target.value,
               });
             } }
+            value={ evaluation }
             className="form-textarea"
             data-testid="product-detail-evaluation"
           />

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 class Rating extends React.Component {
   render() {
-    const { maxRating, setRating } = this.props;
+    const { maxRating, defaultValue, setRating } = this.props;
     const ratingArray = [];
 
     for (let i = 0; i < maxRating; i += 1) {
@@ -20,13 +20,14 @@ class Rating extends React.Component {
                 className="rating-radio"
                 type="radio"
                 name="rating"
-                onClick={ (event) => {
-                  setRating(event.target.value);
+                onChange={ (event) => {
+                  setRating(parseInt(event.target.value, 10));
                 } }
+                checked={ defaultValue === rating }
                 value={ rating }
               />
               &nbsp;
-              { rating }
+              {rating}
             </label>
           ))
         }
@@ -37,6 +38,7 @@ class Rating extends React.Component {
 
 Rating.propTypes = {
   maxRating: PropTypes.number,
+  defaultValue: PropTypes.number,
   setRating: PropTypes.func,
 }.isRequired;
 
