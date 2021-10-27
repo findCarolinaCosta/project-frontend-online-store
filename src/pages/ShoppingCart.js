@@ -16,15 +16,21 @@ class ShoppingCart extends Component {
     };
   }
 
-  // valor total da compra
-  finalPriceTotal = (value) => {
-    this.setState((prevState) => ({
-      finalPrice: prevState.finalPrice + value,
-    }))
-  }
-
   componentDidMount() {
     this.handleCloudIds();
+  }
+
+  // valor total da compra
+  finalPriceTotal = (value, action) => {
+    if (action === 'decreaseButton') {
+      this.setState((prevState) => ({
+        finalPrice: prevState.finalPrice - value,
+      }));
+    } else {
+      this.setState((prevState) => ({
+        finalPrice: prevState.finalPrice + value,
+      }));
+    }
   }
 
   handleCloudIds = () => {
@@ -55,6 +61,7 @@ class ShoppingCart extends Component {
       productIds,
       productsDetails,
       quantityOfEachProduct,
+      finalPrice,
     } = this.state;
 
     if (productIds.length === 0) {
@@ -66,6 +73,7 @@ class ShoppingCart extends Component {
     }
 
     return (
+
       <div>
         <span data-testid="shopping-cart-product-quantity">
           {productsDetails.length}
@@ -85,11 +93,13 @@ class ShoppingCart extends Component {
               price={ price }
               quantityOfEachProduct={ quantityOfEachProduct }
               handleCloudIds={ this.handleCloudIds }
+              finalPriceTotal={ this.finalPriceTotal }
             />
           );
         })}
         {/* valor total da compra */}
         <p>Valor total da compra: </p>
+        { finalPrice }
       </div>
     );
   }

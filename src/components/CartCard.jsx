@@ -14,21 +14,25 @@ class CartCard extends Component {
     this.totalAmount();
   }
 
-  totalAmount = () => {
+  totalAmount = (action) => {
     const {
       quantityOfProduct,
+      totalValue,
     } = this.state;
 
     const {
       price,
+      finalPriceTotal,
     } = this.props;
 
     this.setState({
       totalValue: parseFloat(price) * parseFloat(quantityOfProduct),
+    }, () => { 
+      finalPriceTotal(totalValue, action);
     });
   }
 
-  decreaseCartQuantity = () => {
+  decreaseCartQuantity = ({ target }) => {
     const { quantityOfProduct } = this.state;
     if (quantityOfProduct < 1) {
       this.setState({
@@ -37,13 +41,18 @@ class CartCard extends Component {
     }
     this.setState((prevState) => ({
       quantityOfProduct: prevState.quantityOfProduct - 1,
-    }), () => { this.totalAmount(); });
+    }), () => {
+      this.totalAmount(target.name);
+    });
   }
 
-  increaseCartQuantity = () => {
+  increaseCartQuantity = ({ target }) => {
+    const { finalPriceTotal } = this.props;
     this.setState((prevState) => ({
       quantityOfProduct: prevState.quantityOfProduct + 1,
-    }), () => { this.totalAmount(); });
+    }), () => {
+      this.totalAmount(target.name);
+    });
   }
 
   emptyCart = () => {
@@ -87,6 +96,7 @@ class CartCard extends Component {
             data-testid="product-decrease-quantity"
             type="button"
             onClick={ this.decreaseCartQuantity }
+            name="decreaseButton"
           >
             -
           </button>
@@ -97,6 +107,7 @@ class CartCard extends Component {
             data-testid="product-increase-quantity"
             type="button"
             onClick={ this.increaseCartQuantity }
+            name="increaseButton"
           >
             +
           </button>
