@@ -66,7 +66,6 @@ class ShoppingCart extends Component {
             title,
             price,
           } = product;
-
           return (
             <div key={ id }>
               <span data-testid="shopping-cart-product-name">
