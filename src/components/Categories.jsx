@@ -22,7 +22,7 @@ class Categories extends React.Component {
 
   render() {
     const { categories } = this.state;
-    const { categoryChange, handleSearch } = this.props;
+    const { categoryChange } = this.props;
 
     return (
       <div className="categories">
@@ -36,10 +36,7 @@ class Categories extends React.Component {
                   name="category"
                   id={ category.id }
                   value={ category.id }
-                  onChange={ (event) => {
-                    categoryChange(event);
-                    handleSearch();
-                  } }
+                  onChange={ categoryChange }
                 />
                 {category.name}
               </label>
@@ -53,6 +50,5 @@ class Categories extends React.Component {
 
 Categories.propTypes = {
   categoryChange: PropTypes.func.isRequired,
-  handleSearch: PropTypes.func.isRequired,
 };
 export default Categories;
