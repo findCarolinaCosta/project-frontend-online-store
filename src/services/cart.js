@@ -28,8 +28,7 @@ export function removeProduct(id) {
   const cloudProdutsList = localStorage.getItem('CartIds');
   const productList = JSON.parse(cloudProdutsList);
 
-  let filtredList = productList.filter(({ productId }) => productId !== id);
-  // localStorage.removeItem('CartIds');
+  const filtredList = productList.filter(({ productId }) => productId !== id);
 
   localStorage.setItem('CartIds', JSON.stringify(filtredList));
 }

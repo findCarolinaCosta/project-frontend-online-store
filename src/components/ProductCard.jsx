@@ -20,6 +20,7 @@ class ProductCard extends React.Component {
       categoryId,
       title,
       price,
+      shipping,
     } = this.props;
 
     return (
@@ -28,6 +29,11 @@ class ProductCard extends React.Component {
           to={ `/detailedproductview/${categoryId}/${productId}` }
           data-testid="product-detail-link"
         >
+          {(shipping) && (
+            <span data-testid="free-shipping">
+              Frete Grátis!
+            </span>
+          )}
           <img
             src={ thumbnail }
             alt={ productId }
@@ -57,6 +63,7 @@ ProductCard.propTypes = ({
   productId: PropTypes.string.isRequired,
   categoryId: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
+  shipping: PropTypes.bool.isRequired,
 });
 
 export default ProductCard;
