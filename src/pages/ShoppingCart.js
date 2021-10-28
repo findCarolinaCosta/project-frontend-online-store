@@ -40,11 +40,22 @@ class ShoppingCart extends Component {
     }, this.handleItemsDetails);
   };
 
+  sumTotalPrice = () => {
+    const {
+      productsDetails,
+    } = this.state;
+
+    const sum = productsDetails.reduce((acc, item) => acc + item.price, 0);
+
+    this.setState({ finalPrice: sum });
+  }
+
   handleItemsDetails = () => {
     const {
       productIds,
       productsDetails,
     } = this.state;
+
     productIds.forEach(async ({ productId, categoryId }) => {
       const allProducts = await getProductsFromCategoryAndQuery(categoryId);
       const product = allProducts.results.find(({ id }) => id === productId);
@@ -52,7 +63,7 @@ class ShoppingCart extends Component {
 
       this.setState({
         productsDetails,
-      });
+      }, this.sumTotalPrice);
     });
   }
 
@@ -60,7 +71,6 @@ class ShoppingCart extends Component {
     const {
       productIds,
       productsDetails,
-      quantityOfEachProduct,
       finalPrice,
     } = this.state;
 
@@ -73,13 +83,11 @@ class ShoppingCart extends Component {
     }
 
     return (
-
       <div>
-        <span data-testid="shopping-cart-product-quantity">
+        <span>
           {productsDetails.length}
         </span>
         {productsDetails.map((product) => {
-          console.log(product);
           const {
             id,
             title,
@@ -91,8 +99,6 @@ class ShoppingCart extends Component {
               id={ id }
               title={ title }
               price={ price }
-              quantityOfEachProduct={ quantityOfEachProduct }
-              handleCloudIds={ this.handleCloudIds }
               finalPriceTotal={ this.finalPriceTotal }
             />
           );

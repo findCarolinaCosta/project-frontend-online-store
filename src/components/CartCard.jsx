@@ -27,10 +27,8 @@ class CartCard extends Component {
     } = this.props;
 
     this.setState({
-      totalValue: parseFloat(price) * parseFloat(quantityOfProduct),
-    }, () => {
-      finalPriceTotal(totalValue, action);
-    });
+      totalValue: Number(price) * Number(quantityOfProduct),
+    }, finalPriceTotal(totalValue, action));
   }
 
   decreaseCartQuantity = ({ target }) => {
@@ -48,7 +46,6 @@ class CartCard extends Component {
   }
 
   increaseCartQuantity = ({ target }) => {
-    // const { finalPriceTotal } = this.props;
     this.setState((prevState) => ({
       quantityOfProduct: prevState.quantityOfProduct + 1,
     }), () => {
@@ -59,19 +56,15 @@ class CartCard extends Component {
   emptyCart = () => {
     const {
       id,
-      handleCloudIds,
     } = this.props;
     removeProduct(id);
-    handleCloudIds();
     window.location.reload();
   }
 
   render() {
     const {
-      // id,
       title,
       price,
-      quantityOfEachProduct,
     } = this.props;
 
     const {
@@ -90,9 +83,6 @@ class CartCard extends Component {
           </span>
         </div>
         <div>
-          <span data-testid="shopping-cart-product-quantity">
-            { quantityOfEachProduct }
-          </span>
           <button
             data-testid="product-decrease-quantity"
             type="button"
@@ -101,7 +91,9 @@ class CartCard extends Component {
           >
             -
           </button>
-          <span>
+          <span
+            data-testid="shopping-cart-product-quantity"
+          >
             { quantityOfProduct }
           </span>
           <button
@@ -132,9 +124,7 @@ CartCard.propTypes = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
-  quantityOfEachProduct: PropTypes.number.isRequired,
   finalPriceTotal: PropTypes.func.isRequired,
-  handleCloudIds: PropTypes.func.isRequired,
 };
 
 export default CartCard;
