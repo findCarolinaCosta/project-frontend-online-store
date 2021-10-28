@@ -29,28 +29,23 @@ class ShoppingCart extends Component {
   };
 
   // valor total da compra
-  finalPriceTotal = (value = 0, id = '', inMount) => {
-    if (!inMount) {
-      const { productsToSum } = this.state;
-      const attList = productsToSum.filter((product) => product.id !== id);
-      attList.push({ id, value });
-      const sumPrices = attList.reduce((acc, product) => acc + product.value, 0);
-
-      this.setState({
-        finalPrice: sumPrices,
-        productsToSum: attList,
-      });
-    }
-  }
-
   sumTotalPrice = () => {
-    const {
-      productsDetails,
-    } = this.state;
+    const { productsToSum } = this.state;
 
-    const sum = productsDetails.reduce((acc, item) => acc + item.price, 0);
+    const sum = productsToSum.reduce((acc, item) => acc + item.value, 0);
 
     this.setState({ finalPrice: sum });
+  }
+
+  changeTotalPrice = (id, value) => {
+    const { productsToSum } = this.state;
+
+    const attList = productsToSum.filter((product) => product.id !== id);
+    attList.push({ id, value });
+
+    this.setState({
+      productsToSum: attList,
+    }, this.sumTotalPrice);
   }
 
   handleItemsDetails = () => {
@@ -68,8 +63,9 @@ class ShoppingCart extends Component {
         value: product.price,
       };
 
-      productsDetails.push(product);
       productsToSum.push(details);
+      productsDetails.push(product);
+      product.quantityOfThis = 1;
 
       this.setState({
         productsDetails,
@@ -103,6 +99,7 @@ class ShoppingCart extends Component {
             id,
             title,
             price,
+            quantityOfThis,
           } = product;
           return (
             <CartCard
@@ -110,7 +107,8 @@ class ShoppingCart extends Component {
               id={ id }
               title={ title }
               price={ price }
-              finalPriceTotal={ this.finalPriceTotal }
+              quantityOfThis={ quantityOfThis }
+              changeTotalPrice={ this.changeTotalPrice }
             />
           );
         })}

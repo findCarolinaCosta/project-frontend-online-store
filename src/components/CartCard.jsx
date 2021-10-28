@@ -3,57 +3,49 @@ import PropTypes from 'prop-types';
 import { removeProduct } from '../services/cart';
 
 class CartCard extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       totalValue: 0,
-      quantityOfProduct: 1,
+      quantityOfProduct: props.quantityOfThis,
     };
   }
 
   componentDidMount() {
-    this.totalAmount(true);
+    this.totalAmount();
   }
 
-  totalAmount = (inMount) => {
-    const {
-      quantityOfProduct,
-      totalValue,
-    } = this.state;
-
+  totalAmount = () => {
+    const { quantityOfProduct } = this.state;
     const {
       price,
-      finalPriceTotal,
       id,
+      changeTotalPrice,
     } = this.props;
 
+    const total = price * Number(quantityOfProduct);
+
     this.setState({
-      totalValue: price * Number(quantityOfProduct),
-    }, () => {
-      finalPriceTotal(totalValue, id, inMount);
-    });
+      totalValue: total,
+    }, () => { changeTotalPrice(id, total); });
   }
 
   decreaseCartQuantity = () => {
     const { quantityOfProduct } = this.state;
+
     if (quantityOfProduct < 1) {
-      this.setState({
-        quantityOfProduct: 1,
-      });
+      this.setState({ quantityOfProduct: 1 });
     }
+
     this.setState((prevState) => ({
       quantityOfProduct: prevState.quantityOfProduct - 1,
-    }), () => {
-      this.totalAmount(false);
-    });
+    }), this.totalAmount);
   }
 
   increaseCartQuantity = () => {
     this.setState((prevState) => ({
       quantityOfProduct: prevState.quantityOfProduct + 1,
-    }), () => {
-      this.totalAmount(false);
-    });
+    }), this.totalAmount);
   }
 
   emptyCart = () => {
@@ -125,7 +117,8 @@ CartCard.propTypes = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
-  finalPriceTotal: PropTypes.func.isRequired,
+  quantityOfThis: PropTypes.number.isRequired,
+  changeTotalPrice: PropTypes.func.isRequired,
 };
 
 export default CartCard;
