@@ -56,6 +56,7 @@ class Home extends React.Component {
           categoryId={ product.category_id }
           title={ product.title }
           price={ product.price }
+          shipping={ product.shipping.free_shipping }
         />
       </div>
     ));
