@@ -16,6 +16,7 @@ class DetailedProductView extends Component {
       condition: '',
       categoryId: '',
       id: '',
+      shipping: false,
     };
   }
 
@@ -33,6 +34,7 @@ class DetailedProductView extends Component {
       price: product.price,
       availableQuantity: product.available_quantity,
       condition: product.condition,
+      shipping: product.shipping.free_shipping,
       categoryId,
       id,
     });
@@ -45,7 +47,14 @@ class DetailedProductView extends Component {
   }
 
   render() {
-    const { title, thumbnail, price, availableQuantity, condition } = this.state;
+    const {
+      title,
+      thumbnail,
+      price,
+      availableQuantity,
+      condition,
+      shipping,
+    } = this.state;
 
     return (
       <div className="p-10">
@@ -55,6 +64,11 @@ class DetailedProductView extends Component {
             Carrinho de compras
             <span role="img" aria-label="Carrinho de compras">&#128722;</span>
           </Link>
+          {(shipping) && (
+            <span data-testid="free-shipping">
+              Frete Grátis!
+            </span>
+          )}
           <img src={ thumbnail } alt={ title } />
           <h3>{`R$ ${price}`}</h3>
           <h4>Especificações: </h4>
