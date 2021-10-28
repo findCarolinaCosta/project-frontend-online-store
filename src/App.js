@@ -18,7 +18,7 @@ class App extends React.Component {
           />
           <Route exact path="/shoppingcart" component={ ShoppingCart } />
           <Route exact path="/" component={ Home } />
-          <Route exact path="/shoppingcard/checkoutpage" component={ CheckoutPage } />
+          <Route exact path="/shoppingcard/checkoutpage/" component={ CheckoutPage } />
         </Switch>
       </BrowserRouter>
     );
