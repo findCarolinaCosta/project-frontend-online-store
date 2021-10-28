@@ -17,7 +17,9 @@ class Home extends React.Component {
   }
 
   categoryChange = ({ target }) => {
-    this.setState({ category: target.value });
+    this.setState({
+      category: target.value,
+    }, this.handleSearch);
   }
 
   onInputChange = ({ target }) => {
@@ -70,7 +72,6 @@ class Home extends React.Component {
       <div className="home-layout">
         <Categories
           categoryChange={ this.categoryChange }
-          handleSearch={ this.handleSearch }
         />
 
         <div>
