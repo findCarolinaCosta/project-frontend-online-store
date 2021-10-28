@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { getItemsFromCloud } from '../services/cart';
 import { getProductsFromCategoryAndQuery } from '../services/api';
+import '../css-pages/checkoutPage.css';
 
 class CheckoutPage extends Component {
   constructor() {
@@ -39,10 +40,10 @@ class CheckoutPage extends Component {
       id,
     } = this.state;
     return (
-      <form>
+      <form className="container">
         <fieldset>
-          <section>
-            <h4>Revise seus Produtos</h4>
+          <h4>Revise seus Produtos</h4>
+          <section className="review-products">
             <img
               src={ thumbnail }
               alt={ id }
@@ -55,61 +56,63 @@ class CheckoutPage extends Component {
             </span>
           </section>
         </fieldset>
-        <fieldset>
-          <label htmlFor="fullname">
-            Name:
-            <input
-              id="fullname"
-              type="text"
-              data-testid="checkout-fullname"
-            />
-          </label>
+        <fieldset className="fieldset-form">
+          <section className="form-info">
+            <label htmlFor="fullname">
+              Name:
+              <input
+                id="fullname"
+                type="text"
+                data-testid="checkout-fullname"
+              />
+            </label>
 
-          <label htmlFor="email">
-            Email:
-            <input
-              id="email"
-              type="email"
-              data-testid="checkout-email"
-            />
-          </label>
+            <label htmlFor="email">
+              Email:
+              <input
+                id="email"
+                type="email"
+                data-testid="checkout-email"
+              />
+            </label>
 
-          <label htmlFor="cpf">
-            CPF:
-            <input
-              id="cpf"
-              type="text"
-              data-testid="checkout-cpf"
-            />
-          </label>
+            <label htmlFor="cpf">
+              CPF:
+              <input
+                id="cpf"
+                type="text"
+                data-testid="checkout-cpf"
+              />
+            </label>
 
-          <label htmlFor="phone">
-            Phone number:
-            <input
-              id="phone"
-              type="text"
-              data-testid="checkout-phone"
-            />
-          </label>
+            <label htmlFor="phone">
+              Phone number:
+              <input
+                id="phone"
+                type="text"
+                data-testid="checkout-phone"
+              />
+            </label>
 
-          <label htmlFor="cep">
-            CEP:
-            <input
-              id="cep"
-              type="text"
-              data-testid="checkout-cep"
-            />
-          </label>
+            <label htmlFor="cep">
+              CEP:
+              <input
+                id="cep"
+                type="text"
+                data-testid="checkout-cep"
+              />
+            </label>
 
-          <label htmlFor="address">
-            Address:
-            <input
-              id="address"
-              type="text"
-              data-testid="checkout-address"
-            />
-          </label>
+            <label htmlFor="address">
+              Address:
+              <input
+                id="address"
+                type="text"
+                data-testid="checkout-address"
+              />
+            </label>
 
+          </section>
           <button type="submit">
             Finalizar
           </button>
