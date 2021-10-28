@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { removeProduct } from '../services/cart';
 
 class CartCard extends Component {
@@ -27,7 +28,7 @@ class CartCard extends Component {
 
     this.setState({
       totalValue: parseFloat(price) * parseFloat(quantityOfProduct),
-    }, () => { 
+    }, () => {
       finalPriceTotal(totalValue, action);
     });
   }
@@ -47,7 +48,7 @@ class CartCard extends Component {
   }
 
   increaseCartQuantity = ({ target }) => {
-    const { finalPriceTotal } = this.props;
+    // const { finalPriceTotal } = this.props;
     this.setState((prevState) => ({
       quantityOfProduct: prevState.quantityOfProduct + 1,
     }), () => {
@@ -67,7 +68,7 @@ class CartCard extends Component {
 
   render() {
     const {
-      id,
+      // id,
       title,
       price,
       quantityOfEachProduct,
@@ -125,7 +126,15 @@ class CartCard extends Component {
       </div>
     );
   }
-
 }
+
+CartCard.propTypes = {
+  id: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  quantityOfEachProduct: PropTypes.number.isRequired,
+  finalPriceTotal: PropTypes.func.isRequired,
+  handleCloudIds: PropTypes.func.isRequired,
+};
 
 export default CartCard;
