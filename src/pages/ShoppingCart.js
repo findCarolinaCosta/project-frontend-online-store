@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import { Link } from 'react-router-dom';
 import { getItemsFromCloud } from '../services/cart';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 import CartCard from '../components/CartCard';
@@ -83,30 +84,36 @@ class ShoppingCart extends Component {
     }
 
     return (
-      <div>
-        <span>
-          {productsDetails.length}
-        </span>
-        {productsDetails.map((product) => {
-          const {
-            id,
-            title,
-            price,
-          } = product;
-          return (
-            <CartCard
-              key={ id }
-              id={ id }
-              title={ title }
-              price={ price }
-              finalPriceTotal={ this.finalPriceTotal }
-            />
-          );
-        })}
-        {/* valor total da compra */}
-        <p>Valor total da compra: </p>
-        { finalPrice }
-      </div>
+      <>
+        <div>
+          <span>
+            {productsDetails.length}
+          </span>
+          {productsDetails.map((product) => {
+            const {
+              id, title, price,
+            } = product;
+            return (
+              <CartCard
+                key={ id }
+                id={ id }
+                title={ title }
+                price={ price }
+                finalPriceTotal={ this.finalPriceTotal }
+              />
+            );
+          })}
+          {/* valor total da compra */}
+          <p>Valor total da compra: </p>
+          {finalPrice}
+        </div>
+        <Link to="/shoppingcard/checkoutpage/">
+          <button data-testid="checkout-products" type="button">
+            Finalizar compra
+          </button>
+        </Link>
+
+      </>
     );
   }
 
