@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import { getItemsFromCloud } from '../services/cart';
 import { getProductsFromCategoryAndQuery } from '../services/api';
+import CartCard from '../components/CartCard';
 
 class ShoppingCart extends Component {
   constructor() {
@@ -11,11 +12,25 @@ class ShoppingCart extends Component {
       productIds: [],
       showResults: false,
       productsDetails: [],
+      finalPrice: 0,
     };
   }
 
   componentDidMount() {
     this.handleCloudIds();
+  }
+
+  // valor total da compra
+  finalPriceTotal = (value, action) => {
+    if (action === 'decreaseButton') {
+      this.setState((prevState) => ({
+        finalPrice: prevState.finalPrice - value,
+      }));
+    } else {
+      this.setState((prevState) => ({
+        finalPrice: prevState.finalPrice + value,
+      }));
+    }
   }
 
   handleCloudIds = () => {
@@ -45,6 +60,8 @@ class ShoppingCart extends Component {
     const {
       productIds,
       productsDetails,
+      quantityOfEachProduct,
+      finalPrice,
     } = this.state;
 
     if (productIds.length === 0) {
@@ -56,27 +73,33 @@ class ShoppingCart extends Component {
     }
 
     return (
+
       <div>
         <span data-testid="shopping-cart-product-quantity">
           {productsDetails.length}
         </span>
         {productsDetails.map((product) => {
+          console.log(product);
           const {
             id,
             title,
             price,
           } = product;
           return (
-            <div key={ id }>
-              <span data-testid="shopping-cart-product-name">
-                {title}
-              </span>
-              <span>
-                {price}
-              </span>
-            </div>
+            <CartCard
+              key={ id }
+              id={ id }
+              title={ title }
+              price={ price }
+              quantityOfEachProduct={ quantityOfEachProduct }
+              handleCloudIds={ this.handleCloudIds }
+              finalPriceTotal={ this.finalPriceTotal }
+            />
           );
         })}
+        {/* valor total da compra */}
+        <p>Valor total da compra: </p>
+        { finalPrice }
       </div>
     );
   }
