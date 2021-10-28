@@ -10,8 +10,9 @@ class ShoppingCart extends Component {
 
     this.state = {
       productIds: [],
-      showResults: false,
       productsDetails: [],
+      productsToSum: [],
+      showResults: false,
       finalPrice: 0,
     };
   }
@@ -20,25 +21,27 @@ class ShoppingCart extends Component {
     this.handleCloudIds();
   }
 
-  // valor total da compra
-  finalPriceTotal = (value, action) => {
-    if (action === 'decreaseButton') {
-      this.setState((prevState) => ({
-        finalPrice: prevState.finalPrice - value,
-      }));
-    } else {
-      this.setState((prevState) => ({
-        finalPrice: prevState.finalPrice + value,
-      }));
-    }
-  }
-
   handleCloudIds = () => {
     this.setState({
       productIds: getItemsFromCloud(),
       showResults: true,
     }, this.handleItemsDetails);
   };
+
+  // valor total da compra
+  finalPriceTotal = (value = 0, id = '', inMount) => {
+    if (!inMount) {
+      const { productsToSum } = this.state;
+      const attList = productsToSum.filter((product) => product.id !== id);
+      attList.push({ id, value });
+      const sumPrices = attList.reduce((acc, product) => acc + product.value, 0);
+
+      this.setState({
+        finalPrice: sumPrices,
+        productsToSum: attList,
+      });
+    }
+  }
 
   sumTotalPrice = () => {
     const {
@@ -54,15 +57,23 @@ class ShoppingCart extends Component {
     const {
       productIds,
       productsDetails,
+      productsToSum,
     } = this.state;
 
     productIds.forEach(async ({ productId, categoryId }) => {
       const allProducts = await getProductsFromCategoryAndQuery(categoryId);
       const product = allProducts.results.find(({ id }) => id === productId);
+      const details = {
+        id: product.id,
+        value: product.price,
+      };
+
       productsDetails.push(product);
+      productsToSum.push(details);
 
       this.setState({
         productsDetails,
+        productsToSum,
       }, this.sumTotalPrice);
     });
   }
