@@ -43,9 +43,13 @@ class CartCard extends Component {
   }
 
   increaseCartQuantity = () => {
-    this.setState((prevState) => ({
-      quantityOfProduct: prevState.quantityOfProduct + 1,
-    }), this.totalAmount);
+    const { maxQuantity } = this.props;
+    const { quantityOfProduct } = this.state;
+    if (quantityOfProduct + 1 <= maxQuantity) {
+      this.setState((prevState) => ({
+        quantityOfProduct: prevState.quantityOfProduct + 1,
+      }), this.totalAmount);
+    }
   }
 
   emptyCart = () => {
@@ -118,6 +122,7 @@ CartCard.propTypes = {
   title: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   quantityOfThis: PropTypes.number.isRequired,
+  maxQuantity: PropTypes.number.isRequired,
   changeTotalPrice: PropTypes.func.isRequired,
 };
 

@@ -101,6 +101,7 @@ class ShoppingCart extends Component {
             price,
             quantityOfThis,
           } = product;
+
           return (
             <CartCard
               key={ id }
@@ -108,6 +109,7 @@ class ShoppingCart extends Component {
               title={ title }
               price={ price }
               quantityOfThis={ quantityOfThis }
+              maxQuantity={ product.available_quantity }
               changeTotalPrice={ this.changeTotalPrice }
             />
           );
