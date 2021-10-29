@@ -118,7 +118,7 @@ class ShoppingCart extends Component {
           })}
           {/* valor total da compra */}
           <p>Valor total da compra: </p>
-          { finalPrice }
+          {finalPrice}
         </div>
         <Link to="/shoppingcard/checkoutpage/">
           <button data-testid="checkout-products" type="button">
