@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import { Link } from 'react-router-dom';
 import { getItemsFromCloud } from '../services/cart';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 import CartCard from '../components/CartCard';
@@ -90,34 +91,41 @@ class ShoppingCart extends Component {
     }
 
     return (
-      <div>
-        <span>
-          {productsDetails.length}
-        </span>
-        {productsDetails.map((product) => {
-          const {
-            id,
-            title,
-            price,
-            quantityOfThis,
-          } = product;
+      <>
+        <div>
+          <span>
+            {productsDetails.length}
+          </span>
+          {productsDetails.map((product) => {
+            const {
+              id,
+              title,
+              price,
+              quantityOfThis,
+            } = product;
 
-          return (
-            <CartCard
-              key={ id }
-              id={ id }
-              title={ title }
-              price={ price }
-              quantityOfThis={ quantityOfThis }
-              maxQuantity={ product.available_quantity }
-              changeTotalPrice={ this.changeTotalPrice }
-            />
-          );
-        })}
-        {/* valor total da compra */}
-        <p>Valor total da compra: </p>
-        { finalPrice }
-      </div>
+            return (
+              <CartCard
+                key={ id }
+                id={ id }
+                title={ title }
+                price={ price }
+                quantityOfThis={ quantityOfThis }
+                maxQuantity={ product.available_quantity }
+                changeTotalPrice={ this.changeTotalPrice }
+              />
+            );
+          })}
+          {/* valor total da compra */}
+          <p>Valor total da compra: </p>
+          { finalPrice }
+        </div>
+        <Link to="/shoppingcard/checkoutpage/">
+          <button data-testid="checkout-products" type="button">
+            Finalizar compra
+          </button>
+        </Link>
+      </>
     );
   }
 
