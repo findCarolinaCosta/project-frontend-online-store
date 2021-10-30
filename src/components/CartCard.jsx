@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { removeProduct } from '../services/cart';
 
 class CartCard extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       totalValue: 0,
-      quantityOfProduct: 1,
+      quantityOfProduct: props.quantityOfThis,
     };
   }
 
@@ -15,42 +15,41 @@ class CartCard extends Component {
     this.totalAmount();
   }
 
-  totalAmount = (action) => {
-    const {
-      quantityOfProduct,
-      totalValue,
-    } = this.state;
-
+  totalAmount = () => {
+    const { quantityOfProduct } = this.state;
     const {
       price,
-      finalPriceTotal,
+      id,
+      changeTotalPrice,
     } = this.props;
 
+    const total = price * Number(quantityOfProduct);
+
     this.setState({
-      totalValue: Number(price) * Number(quantityOfProduct),
-    }, finalPriceTotal(totalValue, action));
+      totalValue: total,
+    }, () => { changeTotalPrice(id, total); });
   }
 
-  decreaseCartQuantity = ({ target }) => {
+  decreaseCartQuantity = () => {
     const { quantityOfProduct } = this.state;
+
     if (quantityOfProduct < 1) {
-      this.setState({
-        quantityOfProduct: 1,
-      });
+      this.setState({ quantityOfProduct: 1 });
     }
+
     this.setState((prevState) => ({
       quantityOfProduct: prevState.quantityOfProduct - 1,
-    }), () => {
-      this.totalAmount(target.name);
-    });
+    }), this.totalAmount);
   }
 
-  increaseCartQuantity = ({ target }) => {
-    this.setState((prevState) => ({
-      quantityOfProduct: prevState.quantityOfProduct + 1,
-    }), () => {
-      this.totalAmount(target.name);
-    });
+  increaseCartQuantity = () => {
+    const { maxQuantity } = this.props;
+    const { quantityOfProduct } = this.state;
+    if (quantityOfProduct + 1 <= maxQuantity) {
+      this.setState((prevState) => ({
+        quantityOfProduct: prevState.quantityOfProduct + 1,
+      }), this.totalAmount);
+    }
   }
 
   emptyCart = () => {
@@ -87,7 +86,6 @@ class CartCard extends Component {
             data-testid="product-decrease-quantity"
             type="button"
             onClick={ this.decreaseCartQuantity }
-            name="decreaseButton"
           >
             -
           </button>
@@ -100,7 +98,6 @@ class CartCard extends Component {
             data-testid="product-increase-quantity"
             type="button"
             onClick={ this.increaseCartQuantity }
-            name="increaseButton"
           >
             +
           </button>
@@ -124,7 +121,9 @@ CartCard.propTypes = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
-  finalPriceTotal: PropTypes.func.isRequired,
+  quantityOfThis: PropTypes.number.isRequired,
+  maxQuantity: PropTypes.number.isRequired,
+  changeTotalPrice: PropTypes.func.isRequired,
 };
 
 export default CartCard;
