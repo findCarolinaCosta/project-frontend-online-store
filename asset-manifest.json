@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/findCarolinaCosta/project-frontend-online-store/static/css/main.dde38cbb.chunk.css",
-    "main.js": "/findCarolinaCosta/project-frontend-online-store/static/js/main.82f499b4.chunk.js",
-    "main.js.map": "/findCarolinaCosta/project-frontend-online-store/static/js/main.82f499b4.chunk.js.map",
-    "runtime-main.js": "/findCarolinaCosta/project-frontend-online-store/static/js/runtime-main.6b1052bb.js",
-    "runtime-main.js.map": "/findCarolinaCosta/project-frontend-online-store/static/js/runtime-main.6b1052bb.js.map",
-    "static/js/2.2d862f4f.chunk.js": "/findCarolinaCosta/project-frontend-online-store/static/js/2.2d862f4f.chunk.js",
-    "static/js/2.2d862f4f.chunk.js.map": "/findCarolinaCosta/project-frontend-online-store/static/js/2.2d862f4f.chunk.js.map",
-    "index.html": "/findCarolinaCosta/project-frontend-online-store/index.html",
-    "precache-manifest.ab2a8e8fcbfe8c07d3e98125f6576f11.js": "/findCarolinaCosta/project-frontend-online-store/precache-manifest.ab2a8e8fcbfe8c07d3e98125f6576f11.js",
-    "service-worker.js": "/findCarolinaCosta/project-frontend-online-store/service-worker.js",
-    "static/css/main.dde38cbb.chunk.css.map": "/findCarolinaCosta/project-frontend-online-store/static/css/main.dde38cbb.chunk.css.map",
-    "static/js/2.2d862f4f.chunk.js.LICENSE.txt": "/findCarolinaCosta/project-frontend-online-store/static/js/2.2d862f4f.chunk.js.LICENSE.txt"
+    "main.css": "/project-frontend-online-store/static/css/main.dde38cbb.chunk.css",
+    "main.js": "/project-frontend-online-store/static/js/main.a8f45459.chunk.js",
+    "main.js.map": "/project-frontend-online-store/static/js/main.a8f45459.chunk.js.map",
+    "runtime-main.js": "/project-frontend-online-store/static/js/runtime-main.411a41b2.js",
+    "runtime-main.js.map": "/project-frontend-online-store/static/js/runtime-main.411a41b2.js.map",
+    "static/js/2.2d862f4f.chunk.js": "/project-frontend-online-store/static/js/2.2d862f4f.chunk.js",
+    "static/js/2.2d862f4f.chunk.js.map": "/project-frontend-online-store/static/js/2.2d862f4f.chunk.js.map",
+    "index.html": "/project-frontend-online-store/index.html",
+    "precache-manifest.d4373174d7f8dfef1ddc3ce03a39a4a9.js": "/project-frontend-online-store/precache-manifest.d4373174d7f8dfef1ddc3ce03a39a4a9.js",
+    "service-worker.js": "/project-frontend-online-store/service-worker.js",
+    "static/css/main.dde38cbb.chunk.css.map": "/project-frontend-online-store/static/css/main.dde38cbb.chunk.css.map",
+    "static/js/2.2d862f4f.chunk.js.LICENSE.txt": "/project-frontend-online-store/static/js/2.2d862f4f.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.6b1052bb.js",
+    "static/js/runtime-main.411a41b2.js",
     "static/js/2.2d862f4f.chunk.js",
     "static/css/main.dde38cbb.chunk.css",
-    "static/js/main.82f499b4.chunk.js"
+    "static/js/main.a8f45459.chunk.js"
   ]
 }
